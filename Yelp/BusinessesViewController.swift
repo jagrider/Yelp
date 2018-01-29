@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BusinessesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
+class BusinessesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UIScrollViewDelegate {
   
   // Outlets
   @IBOutlet weak var tableView: UITableView!
@@ -17,6 +17,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
   
   var searchBar: UISearchBar!
   var filterButton: UIBarButtonItem!
+  var isMoreDataLoading = false
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -24,7 +25,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     tableView.delegate = self
     tableView.dataSource = self
     
-    // Set up filter button
+    // TODO: Set up filter button
     //self.filterButton = UIBarButtonItem()
     //self.filterButton.title = "Filter"
     //navigationItem.leftBarButtonItem = self.filterButton
@@ -112,16 +113,25 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
       self.tableView.rowHeight = UITableViewAutomaticDimension
       self.tableView.estimatedRowHeight = 120
       
-      // Debug printing of businesses
-//      if let businesses = businesses {
-//        for business in businesses {
-//          print(business.name!)
-//          print(business.address!)
-//        }
-//      }
-      
     }
     )
+  }
+  
+  func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    if (!isMoreDataLoading) {
+      // Calculate the position of one screen length before the bottom of the results
+      let scrollViewContentHeight = tableView.contentSize.height
+      let scrollOffsetThreshold = scrollViewContentHeight - tableView.bounds.size.height
+      
+      // When the user has scrolled past the threshold, start requesting
+      if(scrollView.contentOffset.y > scrollOffsetThreshold && tableView.isDragging) {
+        
+        isMoreDataLoading = true
+        
+        // Code to load more results
+
+      }
+    }
   }
   
   
