@@ -26,9 +26,9 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     tableView.dataSource = self
     
     // TODO: Set up filter button
-    //self.filterButton = UIBarButtonItem()
-    //self.filterButton.title = "Filter"
-    //navigationItem.leftBarButtonItem = self.filterButton
+//    self.filterButton = UIBarButtonItem()
+//    self.filterButton.title = "Filter"
+//    navigationItem.leftBarButtonItem = self.filterButton
     
     // Set up search bar
     createSearchBar()
@@ -94,9 +94,9 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
   func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
     
     if self.searchBar.text != nil {
-      search(query: self.searchBar.text!)
-    } else {
-      search(query: "")
+      if self.searchBar.text != "" {
+        search(query: self.searchBar.text!)
+      }
     }
 
   }
